@@ -32,6 +32,8 @@ export default function ProductPage() {
     return <div>Carregando...</div>
   }
 
+  const allThumbnails = [product.mainImage, ...product.images]
+
   return (
     <div className="container mx-auto my-12 px-4">
       <div className="grid md:grid-cols-2 gap-12">
@@ -46,9 +48,9 @@ export default function ProductPage() {
             />
           </div>
           <div className="mt-4 flex justify-center gap-2">
-            {product.images.map((img, index) => (
+            {allThumbnails.map((img) => (
               <button
-                key={index}
+                key={img}
                 onClick={() => setActiveImage(img)}
                 className={cn(
                   "overflow-hidden rounded-md transition-opacity focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
@@ -59,7 +61,7 @@ export default function ProductPage() {
               >
                 <Image
                   src={img || "/placeholder.svg"}
-                  alt={`Miniatura ${index + 1} de ${product.name}`}
+                  alt={`Miniatura de ${product.name}`}
                   width={100}
                   height={100}
                   className="h-[100px] w-[100px] object-cover"

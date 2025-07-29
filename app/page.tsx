@@ -8,8 +8,9 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Star, ShoppingCart } from "lucide-react"
-import { products } from "@/lib/products"
+import { products, mostPurchasedProducts } from "@/lib/products"
 import { useCart } from "@/contexts/cart-context"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 
 const testimonials = [
   {
@@ -99,8 +100,56 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Seção de Mais Comprados */}
+      <section id="most-purchased" className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Categorias Mais Comprados</h2>
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent>
+              {mostPurchasedProducts.map((product) => (
+                <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/3">
+                  <div className="p-1">
+                    <Link href={`/products/${product.id}`} className="group">
+                      <Card className="overflow-hidden h-full flex flex-col">
+                        <CardContent className="p-0 flex-grow flex flex-col">
+                          <div className="relative">
+                            <Image
+                              src={product.mainImage || "/placeholder.svg"}
+                              alt={`Imagem do produto ${product.name}`}
+                              width={400}
+                              height={400}
+                              className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                            />
+                          </div>
+                          <div className="p-6 text-center flex-grow flex flex-col">
+                            <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
+                            <p className="text-2xl font-bold text-primary mb-4 mt-auto">{product.priceFormatted}</p>
+                            <Button onClick={(e) => handleBuyNowClick(e, product)}>
+                              <ShoppingCart className="mr-2 h-4 w-4" />
+                              Comprar Agora
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden sm:flex" />
+            <CarouselNext className="hidden sm:flex" />
+          </Carousel>
+        </div>
+      </section>
+
       {/* Seção de Provas Sociais */}
-      <section id="testimonials" className="py-16 md:py-24">
+      <section id="testimonials" className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">O que nossos clientes dizem</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

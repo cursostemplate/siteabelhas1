@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"
 import { Menu, ShoppingCart } from "lucide-react"
-import { SearchDialog } from "./search-dialog"
+import { SearchDialog } from "@/components/search-dialog"
 import { useCart } from "@/contexts/cart-context"
 import { Badge } from "@/components/ui/badge"
 
