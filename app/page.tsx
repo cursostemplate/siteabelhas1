@@ -1,6 +1,6 @@
 "use client"
 
-import type React from "react"
+import React from "react"
 
 import Image from "next/image"
 import Link from "next/link"
@@ -10,6 +10,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Star, ShoppingCart } from "lucide-react"
 import { products, mostPurchasedProducts } from "@/lib/products"
 import { useCart } from "@/contexts/cart-context"
+import Autoplay from "embla-carousel-autoplay"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 
 const testimonials = [
@@ -32,8 +33,44 @@ const testimonials = [
   },
 ]
 
+const bannerSlides = [
+  {
+    image: "/placeholder.svg?height=1200&width=1920&q=banner1",
+    alt: "Sala de estar moderna com sofá cinza e decoração minimalista.",
+    title: "Design que Transforma",
+    subtitle: "Encontre peças exclusivas que combinam estilo, conforto e qualidade para o seu lar.",
+    buttonText: "Explore nossa coleção",
+    buttonLink: "#products",
+  },
+  {
+    image: "/placeholder.svg?height=1200&width=1920&q=banner2",
+    alt: "Canto de leitura aconchegante com poltrona de couro e luminária de chão.",
+    title: "Conforto em Cada Detalhe",
+    subtitle: "Crie ambientes acolhedores com móveis que abraçam e relaxam.",
+    buttonText: "Veja as poltronas",
+    buttonLink: "#most-purchased",
+  },
+  {
+    image: "/placeholder.svg?height=1200&width=1920&q=banner3",
+    alt: "Mesa de jantar de madeira com cadeiras de design moderno.",
+    title: "Momentos para Compartilhar",
+    subtitle: "Peças que reúnem pessoas e criam memórias inesquecíveis.",
+    buttonText: "Nossos destaques",
+    buttonLink: "#products",
+  },
+  {
+    image: "/placeholder.svg?height=1200&width=1920&q=banner4",
+    alt: "Escritório em casa bem iluminado com cadeira ergonômica e estante organizada.",
+    title: "Inspiração para seu Espaço",
+    subtitle: "Soluções inteligentes e elegantes para o seu dia a dia.",
+    buttonText: "Descubra mais",
+    buttonLink: "#most-purchased",
+  },
+]
+
 export default function HomePage() {
   const { addToCart } = useCart()
+  const plugin = React.useRef(Autoplay({ delay: 4000, stopOnInteraction: true }))
 
   const handleBuyNowClick = (e: React.MouseEvent, product: (typeof products)[0]) => {
     e.preventDefault()
@@ -43,27 +80,48 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Banner Principal */}
-      <section className="relative h-[60vh] md:h-[70vh] w-full flex items-center justify-center text-center text-white overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/placeholder.svg?height=1200&width=1920"
-            alt="Banner principal com decoração moderna"
-            layout="fill"
-            objectFit="cover"
-            className="brightness-50"
-            priority
-          />
-        </div>
-        <div className="relative z-10 p-4">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4">Design que Transforma</h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto">
-            Encontre peças exclusivas que combinam estilo, conforto e qualidade para o seu lar.
-          </p>
-          <Button size="lg" className="mt-8" asChild>
-            <Link href="#products">Explore nossa coleção</Link>
-          </Button>
-        </div>
+      {/* Banner Principal - A altura é controlada aqui para manter o tamanho original */}
+      <section className="relative h-[60vh] md:h-[70vh] w-full overflow-hidden">
+        <Carousel
+          plugins={[plugin.current]}
+          className="w-full h-full"
+          onMouseEnter={plugin.current.stop}
+          onMouseLeave={plugin.current.reset}
+          opts={{
+            loop: true,
+          }}
+        >
+          <CarouselContent className="h-full">
+            {bannerSlides.map((slide, index) => (
+              <CarouselItem key={index} className="h-full">
+                <div className="relative h-full w-full flex items-center justify-center text-center text-white">
+                  <div className="absolute inset-0">
+                    <Image
+                      src={slide.image || "/placeholder.svg"}
+                      alt={slide.alt}
+                      layout="fill"
+                      objectFit="cover"
+                      className="brightness-50"
+                      priority={index === 0}
+                    />
+                  </div>
+                  <div className="relative z-10 p-4">
+                    <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4 animate-fade-in-down">
+                      {slide.title}
+                    </h1>
+                    <p className="text-lg md:text-xl max-w-2xl mx-auto animate-fade-in-up">{slide.subtitle}</p>
+                    <Button size="lg" className="mt-8" asChild>
+                      <Link href={slide.buttonLink}>{slide.buttonText}</Link>
+                    </Button>
+                  </div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          {/* Setas de navegação visíveis apenas no desktop */}
+          <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-20 text-white bg-black/20 hover:bg-black/50 border-none hidden md:flex" />
+          <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-20 text-white bg-black/20 hover:bg-black/50 border-none hidden md:flex" />
+        </Carousel>
       </section>
 
       {/* Seção de Produtos */}
