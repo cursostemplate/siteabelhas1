@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import type { CarouselApi } from "@/components/ui/carousel"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -15,6 +16,7 @@ import {
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Star, ShoppingCart, X } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 // Tipagem para os dados do produto
 type Product = {
@@ -92,6 +94,26 @@ const testimonials = [
 
 export default function HomePage() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+  const [api, setApi] = useState<CarouselApi>()
+  const [current, setCurrent] = useState(0)
+
+  useEffect(() => {
+    if (!api) {
+      return
+    }
+
+    setCurrent(api.selectedScrollSnap())
+
+    const handleSelect = () => {
+      setCurrent(api.selectedScrollSnap())
+    }
+
+    api.on("select", handleSelect)
+
+    return () => {
+      api.off("select", handleSelect)
+    }
+  }, [api])
 
   return (
     <div className="bg-white text-gray-800">
@@ -230,8 +252,8 @@ export default function HomePage() {
       <Dialog open={!!selectedProduct} onOpenChange={() => setSelectedProduct(null)}>
         <DialogContent className="sm:max-w-[800px] p-0">
           <div className="grid grid-cols-1 md:grid-cols-2">
-            <div className="p-4 md:p-0">
-              <Carousel className="w-full">
+            <div className="p-6">
+              <Carousel setApi={setApi} className="w-full">
                 <CarouselContent>
                   {selectedProduct?.images.map((img, index) => (
                     <CarouselItem key={index}>
@@ -248,6 +270,28 @@ export default function HomePage() {
                 <CarouselPrevious className="left-4" />
                 <CarouselNext className="right-4" />
               </Carousel>
+              <div className="mt-4 flex justify-center gap-2">
+                {selectedProduct?.images.map((img, index) => (
+                  <button
+                    key={index}
+                    onClick={() => api?.scrollTo(index)}
+                    className={cn(
+                      "overflow-hidden rounded-md transition-opacity focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
+                      current === index
+                        ? "opacity-100 ring-2 ring-primary ring-offset-2"
+                        : "opacity-60 hover:opacity-100",
+                    )}
+                  >
+                    <Image
+                      src={img || "/placeholder.svg"}
+                      alt={`Miniatura ${index + 1} de ${selectedProduct.name}`}
+                      width={100}
+                      height={100}
+                      className="h-[100px] w-[100px] object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
             </div>
             <div className="p-6 flex flex-col">
               <DialogHeader>
