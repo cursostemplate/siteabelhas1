@@ -6,34 +6,14 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-import { Star, ShoppingCart } from "lucide-react"
+import { ShoppingCart } from "lucide-react"
 import { products, mostPurchasedProducts } from "@/lib/products"
 import { useCart } from "@/contexts/cart-context"
 import Autoplay from "embla-carousel-autoplay"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { VideoPlayer } from "@/components/ui/video-thumbnail-player"
 import { ImageSwiper } from "@/components/ui/image-swiper"
-
-const testimonials = [
-  {
-    name: "Ana Clara",
-    comment:
-      "Amei o vaso! Chegou super rápido e é ainda mais bonito pessoalmente. Deu um charme especial para minha sala.",
-    avatar: "/placeholder.svg?height=100&width=100",
-  },
-  {
-    name: "Marcos Rocha",
-    comment: "A cadeira é extremamente confortável, valeu cada centavo. Minhas costas agradecem! Qualidade impecável.",
-    avatar: "/placeholder.svg?height=100&width=100",
-  },
-  {
-    name: "Juliana Paes",
-    comment:
-      "A luminária tem um design incrível e a luz é muito agradável. Deixou meu canto de leitura super aconchegante.",
-    avatar: "/placeholder.svg?height=100&width=100",
-  },
-]
+import { Testimonials } from "@/components/testimonials"
 
 const bannerSlides = [
   {
@@ -285,30 +265,7 @@ export default function HomePage() {
       </section>
 
       {/* Seção de Provas Sociais */}
-      <section id="testimonials" className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">O que nossos clientes dizem</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index}>
-                <CardContent className="p-6 flex flex-col items-center text-center">
-                  <Avatar className="w-20 h-20 mb-4">
-                    <AvatarImage src={testimonial.avatar || "/placeholder.svg"} alt={`Foto de ${testimonial.name}`} />
-                    <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
-                  </Avatar>
-                  <div className="flex gap-1 text-yellow-400 mb-2">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} fill="currentColor" className="w-5 h-5" />
-                    ))}
-                  </div>
-                  <p className="text-gray-600 mb-4">&quot;{testimonial.comment}&quot;</p>
-                  <h4 className="font-bold">{testimonial.name}</h4>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Testimonials />
     </>
   )
 }
