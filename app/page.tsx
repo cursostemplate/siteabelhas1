@@ -5,13 +5,15 @@ import React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Star, ShoppingCart } from "lucide-react"
 import { products, mostPurchasedProducts } from "@/lib/products"
 import { useCart } from "@/contexts/cart-context"
 import Autoplay from "embla-carousel-autoplay"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import { VideoPlayer } from "@/components/ui/video-thumbnail-player"
+import { ImageSwiper } from "@/components/ui/image-swiper"
 
 const testimonials = [
   {
@@ -68,6 +70,42 @@ const bannerSlides = [
   },
 ]
 
+const dailyDeals = [
+  {
+    id: 10,
+    name: "Colmeia de Jataí",
+    location: "Produção sustentável",
+    price: 250.0,
+    images: [
+      "/placeholder.svg?height=400&width=400",
+      "/placeholder.svg?height=400&width=400",
+      "/placeholder.svg?height=400&width=400",
+    ],
+  },
+  {
+    id: 11,
+    name: "Mel de Mandaçaia 250g",
+    location: "Sabor único e medicinal",
+    price: 79.9,
+    images: [
+      "/placeholder.svg?height=400&width=400",
+      "/placeholder.svg?height=400&width=400",
+      "/placeholder.svg?height=400&width=400",
+    ],
+  },
+  {
+    id: 12,
+    name: "Kit Criação de Uruçu",
+    location: "Inicie sua meliponicultura",
+    price: 499.9,
+    images: [
+      "/placeholder.svg?height=400&width=400",
+      "/placeholder.svg?height=400&width=400",
+      "/placeholder.svg?height=400&width=400",
+    ],
+  },
+]
+
 export default function HomePage() {
   const { addToCart } = useCart()
   const plugin = React.useRef(Autoplay({ delay: 4000, stopOnInteraction: true }))
@@ -80,7 +118,7 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Banner Principal - A altura é controlada aqui para manter o tamanho original */}
+      {/* Banner Principal */}
       <section className="relative h-[60vh] md:h-[70vh] w-full overflow-hidden">
         <Carousel
           plugins={[plugin.current]}
@@ -118,10 +156,34 @@ export default function HomePage() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          {/* Setas de navegação visíveis apenas no desktop */}
           <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-20 text-white bg-black/20 hover:bg-black/50 border-none hidden md:flex" />
           <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-20 text-white bg-black/20 hover:bg-black/50 border-none hidden md:flex" />
         </Carousel>
+      </section>
+
+      {/* Seção de Ofertas do Dia */}
+      <section id="daily-deals" className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Ofertas do Dia Promocional</h2>
+          <div className="flex justify-center">
+            {dailyDeals.slice(0, 1).map((deal) => (
+              <Card key={deal.id} className="w-full max-w-sm mx-auto">
+                <CardContent className="p-0">
+                  <ImageSwiper images={deal.images} />
+                </CardContent>
+                <CardHeader>
+                  <CardTitle className="text-lg font-semibold">{deal.name}</CardTitle>
+                  <p className="text-sm text-muted-foreground">{deal.location}</p>
+                  <p className="mt-1">
+                    <span className="font-semibold">
+                      {new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(deal.price)}
+                    </span>
+                  </p>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Seção de Produtos */}
@@ -206,8 +268,24 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Seção de Vídeo */}
+      <section id="video-section" className="py-16 md:py-24 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Conheça Nossa História</h2>
+          <div className="w-full max-w-4xl mx-auto">
+            <VideoPlayer
+              thumbnailUrl="/placeholder.svg?height=1080&width=1920"
+              videoUrl="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+              title="Nossa Paixão por Abelhas Nativas"
+              description="Descubra como cuidamos das nossas abelhas e produzimos com sustentabilidade."
+              className="rounded-xl"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Seção de Provas Sociais */}
-      <section id="testimonials" className="py-16 md:py-24 bg-gray-50">
+      <section id="testimonials" className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">O que nossos clientes dizem</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
