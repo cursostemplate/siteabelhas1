@@ -14,6 +14,8 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { VideoPlayer } from "@/components/ui/video-thumbnail-player"
 import { ImageSwiper } from "@/components/ui/image-swiper"
 import { Testimonials } from "@/components/testimonials"
+import { FaqSection } from "@/components/ui/faq"
+import { AnimatedCarousel } from "@/components/ui/logo-carousel"
 
 const bannerSlides = [
   {
@@ -86,6 +88,49 @@ const dailyDeals = [
   },
 ]
 
+const faqData = [
+  {
+    question: "Como as abelhas são enviadas?",
+    answer:
+      "Nossas abelhas são enviadas em caixas especiais, projetadas para garantir a segurança e o bem-estar delas durante o transporte. Utilizamos transportadoras especializadas em cargas vivas, com seguro total contra perdas e danos.",
+  },
+  {
+    question: "É legal comprar abelhas sem ferrão?",
+    answer:
+      "Sim, é totalmente legal. Todas as nossas colônias são de criadores autorizados e seguem as regulamentações do IBAMA. Você receberá toda a documentação necessária junto com sua compra.",
+  },
+  {
+    question: "O que acontece se as abelhas chegarem mortas?",
+    answer:
+      "Nossa garantia de entrega cobre 100% do valor. Caso ocorra qualquer problema durante o transporte e as abelhas não cheguem vivas, basta nos contatar com fotos em até 24h após o recebimento que providenciaremos o reenvio de uma nova colônia ou o reembolso total.",
+  },
+  {
+    question: "Preciso de alguma licença para criar abelhas sem ferrão?",
+    answer:
+      "Para a criação como hobby, geralmente não é necessária uma licença específica, mas é importante se informar sobre as regulamentações locais. Para atividades comerciais, pode ser necessário o registro junto aos órgãos ambientais. Oferecemos orientação sobre os primeiros passos.",
+  },
+  {
+    question: "Qual o prazo de entrega?",
+    answer:
+      "O prazo de entrega varia de acordo com a sua localidade. Em média, leva de 3 a 7 dias úteis. O prazo exato será calculado e informado no momento da finalização da compra.",
+  },
+]
+
+const promoItems = [
+  "Abelha Jataí",
+  "Abelha Uruçu",
+  "Abelha Mandaçaia",
+  "Promoções Exclusivas",
+  "Frete Grátis Brasil",
+  "12x Sem Juros",
+  "Compra 100% Segura",
+  "Sustentabilidade",
+  "Mel Puro e Orgânico",
+  "Apoie o Meliponicultor",
+  "Polinização para o Planeta",
+  "Qualidade Garantida",
+]
+
 export default function HomePage() {
   const { addToCart } = useCart()
   const plugin = React.useRef(Autoplay({ delay: 4000, stopOnInteraction: true }))
@@ -141,8 +186,19 @@ export default function HomePage() {
         </Carousel>
       </section>
 
+      {/* Seção de Vantagens */}
+      <AnimatedCarousel
+        title="Vantagens que voam até você"
+        logos={promoItems}
+        itemsPerViewMobile={3}
+        itemsPerViewDesktop={6}
+        logoContainerHeight="h-20"
+        logoClassName="border-none"
+        padding="py-12 md:py-16"
+      />
+
       {/* Seção de Ofertas do Dia */}
-      <section id="daily-deals" className="py-16 md:py-24 bg-white">
+      <section id="daily-deals" className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Ofertas do Dia Promocional</h2>
           <div className="flex justify-center">
@@ -167,7 +223,7 @@ export default function HomePage() {
       </section>
 
       {/* Seção de Produtos */}
-      <section id="products" className="py-16 md:py-24 bg-gray-50">
+      <section id="products" className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Nossos Destaques</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -201,7 +257,7 @@ export default function HomePage() {
       </section>
 
       {/* Seção de Mais Comprados */}
-      <section id="most-purchased" className="py-16 md:py-24 bg-white">
+      <section id="most-purchased" className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Categorias Mais Comprados</h2>
           <Carousel
@@ -248,21 +304,36 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Seção de Vídeo */}
-      <section id="video-section" className="py-16 md:py-24 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Conheça Nossa História</h2>
-          <div className="w-full max-w-4xl mx-auto">
-            <VideoPlayer
-              thumbnailUrl="/placeholder.svg?height=1080&width=1920"
-              videoUrl="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-              title="Nossa Paixão por Abelhas Nativas"
-              description="Descubra como cuidamos das nossas abelhas e produzimos com sustentabilidade."
-              className="rounded-xl"
-            />
+      {/* Seção de Vídeo e FAQ */}
+      <div className="bg-white">
+        <section id="video-section" className="pt-16 md:pt-24">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Conheça Nossa História</h2>
+            <div className="w-full max-w-4xl mx-auto">
+              <VideoPlayer
+                thumbnailUrl="/placeholder.svg?height=1080&width=1920"
+                videoUrl="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+                title="Nossa Paixão por Abelhas Nativas"
+                description="Descubra como cuidamos das nossas abelhas e produzimos com sustentabilidade."
+                className="rounded-xl"
+              />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <FaqSection
+          title="Dúvidas Frequentes"
+          description="Tudo o que você precisa saber sobre a compra e envio das nossas abelhas."
+          items={faqData}
+          contactInfo={{
+            title: "Ainda tem dúvidas?",
+            description: "Nossa equipe está pronta para ajudar você.",
+            buttonText: "Fale Conosco",
+            onContact: () => console.log("Contact support clicked"),
+          }}
+          className="bg-white"
+        />
+      </div>
 
       {/* Seção de Provas Sociais */}
       <Testimonials />
