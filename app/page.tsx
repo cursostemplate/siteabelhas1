@@ -18,6 +18,7 @@ import { FaqSection } from "@/components/ui/faq"
 import { AnimatedCarousel } from "@/components/ui/logo-carousel"
 import { CouponPopup } from "@/components/coupon-popup"
 import { AnimatedTooltipPreview } from "@/components/animated-tooltip-preview"
+import { ImageDeckCarouselDemo } from "@/components/image-deck-carousel-demo"
 
 const bannerSlides = [
   {
@@ -359,6 +360,7 @@ export default function HomePage() {
 
       {/* Seção de Provas Sociais */}
       <Testimonials />
+      <ImageDeckCarouselDemo />
     </>
   )
 }
