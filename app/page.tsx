@@ -16,6 +16,7 @@ import { ImageSwiper } from "@/components/ui/image-swiper"
 import { Testimonials } from "@/components/testimonials"
 import { FaqSection } from "@/components/ui/faq"
 import { AnimatedCarousel } from "@/components/ui/logo-carousel"
+import { CouponPopup } from "@/components/coupon-popup"
 
 const bannerSlides = [
   {
@@ -143,6 +144,7 @@ export default function HomePage() {
 
   return (
     <>
+      <CouponPopup />
       {/* Banner Principal */}
       <section className="relative h-[60vh] md:h-[70vh] w-full overflow-hidden">
         <Carousel
