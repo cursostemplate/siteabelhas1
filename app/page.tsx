@@ -6,7 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ShoppingCart } from "lucide-react"
+import { ShoppingCart, Star } from "lucide-react"
 import { products, mostPurchasedProducts } from "@/lib/products"
 import { useCart } from "@/contexts/cart-context"
 import Autoplay from "embla-carousel-autoplay"
@@ -17,6 +17,7 @@ import { Testimonials } from "@/components/testimonials"
 import { FaqSection } from "@/components/ui/faq"
 import { AnimatedCarousel } from "@/components/ui/logo-carousel"
 import { CouponPopup } from "@/components/coupon-popup"
+import { AnimatedTooltipPreview } from "@/components/animated-tooltip-preview"
 
 const bannerSlides = [
   {
@@ -186,6 +187,25 @@ export default function HomePage() {
           <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-20 text-white bg-black/20 hover:bg-black/50 border-none hidden md:flex" />
           <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-20 text-white bg-black/20 hover:bg-black/50 border-none hidden md:flex" />
         </Carousel>
+      </section>
+
+      {/* Premium Buyers Section */}
+      <section className="py-6 bg-gray-50 border-b border-t border-gray-200">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-4 md:gap-8">
+            <div className="flex items-center gap-2">
+              <div className="flex text-yellow-400">
+                <Star className="w-5 h-5 fill-current" />
+                <Star className="w-5 h-5 fill-current" />
+                <Star className="w-5 h-5 fill-current" />
+                <Star className="w-5 h-5 fill-current" />
+                <Star className="w-5 h-5 fill-current" />
+              </div>
+              <p className="text-sm font-medium text-gray-600 whitespace-nowrap">Compradores premium</p>
+            </div>
+            <AnimatedTooltipPreview />
+          </div>
+        </div>
       </section>
 
       {/* Seção de Vantagens */}
