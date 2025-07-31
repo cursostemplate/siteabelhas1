@@ -19,6 +19,7 @@ import { CouponPopup } from "@/components/coupon-popup"
 import { AnimatedTooltipPreview } from "@/components/animated-tooltip-preview"
 import { ImageDeckCarouselDemo } from "@/components/image-deck-carousel-demo"
 import AnimatedNumberCountdown from "@/components/ui/countdown-number"
+import { StoriesCarouselSection } from "@/components/stories-carousel-section"
 
 const bannerSlides = [
   {
@@ -280,6 +281,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <StoriesCarouselSection />
 
       {/* Seção de Mais Comprados */}
       <section id="most-purchased" className="py-16 md:py-24 bg-gray-50">
