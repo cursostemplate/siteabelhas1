@@ -1,7 +1,6 @@
 "use client"
 
 import React from "react"
-
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -348,6 +347,7 @@ export default function HomePage() {
         </section>
 
         <FaqSection
+          id="faq"
           title="Dúvidas Frequentes"
           description="Tudo o que você precisa saber sobre a compra e envio das nossas abelhas."
           items={faqData}
@@ -355,9 +355,9 @@ export default function HomePage() {
             title: "Ainda tem dúvidas?",
             description: "Nossa equipe está pronta para ajudar você.",
             buttonText: "Fale Conosco",
-            onContact: () => console.log("Contact support clicked"),
+            onContact: () => window.open("https://wa.me/5584986294967", "_blank"),
           }}
-          className="bg-white"
+          className="py-16"
         />
       </div>
 

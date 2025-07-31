@@ -25,7 +25,7 @@ interface FaqSectionProps extends React.HTMLAttributes<HTMLElement> {
 const FaqSection = React.forwardRef<HTMLElement, FaqSectionProps>(
   ({ className, title, description, items, contactInfo, ...props }, ref) => {
     return (
-      <section ref={ref} className={cn("py-16 w-full bg-white", className)} {...props}>
+      <section ref={ref} className={cn("w-full", className)} {...props}>
         <div className="container">
           {/* Header */}
           <motion.div

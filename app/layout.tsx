@@ -8,6 +8,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { CartProvider } from "@/contexts/cart-context"
 import { Toaster } from "@/components/ui/sonner"
 import { CartSheet } from "@/components/cart-sheet"
+import { CookieConsentBanner } from "@/components/cookie-consent-banner"
 
 export const metadata: Metadata = {
   title: "Abelhas Nativas - Design que Transforma",
@@ -40,6 +41,7 @@ html {
             <CartSheet />
           </div>
           <Toaster richColors />
+          <CookieConsentBanner />
         </CartProvider>
       </body>
     </html>
