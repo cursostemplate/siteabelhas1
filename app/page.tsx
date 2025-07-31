@@ -19,6 +19,7 @@ import { AnimatedCarousel } from "@/components/ui/logo-carousel"
 import { CouponPopup } from "@/components/coupon-popup"
 import { AnimatedTooltipPreview } from "@/components/animated-tooltip-preview"
 import { ImageDeckCarouselDemo } from "@/components/image-deck-carousel-demo"
+import AnimatedNumberCountdown from "@/components/ui/countdown-number"
 
 const bannerSlides = [
   {
@@ -223,7 +224,9 @@ export default function HomePage() {
       {/* Seção de Ofertas do Dia */}
       <section id="daily-deals" className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Ofertas do Dia Promocional</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Ofertas do Dia Promocional</h2>
+          <p className="text-center text-muted-foreground mb-8">Aproveite! As ofertas terminam em:</p>
+          <AnimatedNumberCountdown endDate={new Date("2025-12-31T23:59:59")} className="mb-12" />
           <div className="flex justify-center">
             {dailyDeals.slice(0, 1).map((deal) => (
               <Card key={deal.id} className="w-full max-w-sm mx-auto">
